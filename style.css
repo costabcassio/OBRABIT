@@ -370,3 +370,29 @@ footer p{
     }
 
 }
+
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo img{
+    width:60px;
+    height:auto;
+}
+
+.logo-text h3{
+    margin:0;
+    color:#fff;
+    font-size:28px;
+    font-weight:800;
+    line-height:1;
+}
+
+.logo-text span{
+    color:#d4af37;
+    font-size:12px;
+    letter-spacing:2px;
+}
