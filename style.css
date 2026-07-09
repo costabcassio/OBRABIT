@@ -65,19 +65,48 @@ header{
 .nav{
     height:95px;
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
+    gap:40px;
 }
 
 .logo{
     display:flex;
     align-items:center;
+    gap:14px;
+    text-decoration:none;
+    min-width:340px;
 }
 
 .logo img{
-    height:70px;
+    height:68px;
     width:auto;
-    display:block;
+}
+
+.logo-info{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.logo-name{
+    font-size:42px;
+    font-weight:800;
+    line-height:1;
+    letter-spacing:1px;
+    color:#ffffff;
+}
+
+.logo-name span{
+    color:#D4AF37;
+}
+
+.logo-desc{
+    margin-top:2px;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:3px;
+    color:#D4AF37;
 }
 
 nav{
