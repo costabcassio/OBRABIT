@@ -371,11 +371,10 @@ footer p{
 
 }
 
-
 .logo{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:15px;
 }
 
 .logo img{
@@ -383,16 +382,27 @@ footer p{
     height:auto;
 }
 
-.logo-text h3{
-    margin:0;
-    color:#fff;
-    font-size:28px;
-    font-weight:800;
-    line-height:1;
+.logo-text{
+    display:flex;
+    flex-direction:column;
 }
 
-.logo-text span{
+.logo-title{
+    font-size:34px;
+    font-weight:800;
+    color:#ffffff;
+    line-height:1;
+    letter-spacing:1px;
+}
+
+.logo-title span{
     color:#d4af37;
+}
+
+.logo-subtitle{
+    margin-top:4px;
     font-size:12px;
-    letter-spacing:2px;
+    letter-spacing:3px;
+    color:#d4af37;
+    font-weight:500;
 }
