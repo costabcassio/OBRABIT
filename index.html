@@ -13,9 +13,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-PC9CW56M');</script>
 <!-- End Google Tag Manager -->
 
-<!-- Event snippet for WhatApp Lead conversion page -->
+
+    <!-- Event snippet for WhatApp Lead conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
 <script>
-  gtag('event', 'conversion', {'send_to': 'AW-18273517736/ozVrCJLq0-QcEKiBv4lE'});
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-18273517736/ozVrCJLq0-QcEKiBv4lE',
+      'event_callback': callback
+  });
+  return false;
+}
 </script>
 
     
