@@ -1,257 +1,263 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1243429899340228"
+crossorigin="anonymous"></script>
+
+<!-- Google Tag HTML -->
+<meta name="google-site-verification" content="xPDembgyDzrMyQ0gbN16KnpHOKxqksLCfRK8xVjr610" />
+
+<!-- Monetag (Movido para o <head>) -->
+<meta name="monetag" content="ebe898e01b212b249e557809d901e62e">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18273517736"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18273517736');
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PC9CW56M');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Event snippet for WhatApp Lead conversion page -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+    'send_to': 'AW-18273517736/ozVrCJLq0-QcEKiBv4lE',
+    'event_callback': callback
+  });
+  return false;
+}
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OBRABIT | Calculadora de Orçamento</title>
+<title>OBRABIT | Construção e Reforma no Rio de Janeiro</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta name="description" content="Reformas residenciais, comerciais e construção civil no Rio de Janeiro. Seu lar, sem dor de cabeça.">
+<link rel="stylesheet" href="style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --navy:#0F1A26;
-  --gold:#D4AF37;
-  --white:#FFFFFF;
-  --light:#F5F5F5;
-  --text:#555555;
-}
-body{
-  font-family:'Poppins',sans-serif;
-  background:var(--light);
-  color:var(--text);
-  padding:60px 20px;
-}
-.container{
-  width:90%;
-  max-width:700px;
-  margin:auto;
-}
-h2{
-  color:var(--navy);
-  font-size:2.4rem;
-  text-align:center;
-  margin-bottom:15px;
-}
-.section-text{
-  max-width:560px;
-  margin:0 auto 10px;
-  text-align:center;
-}
-.calc-card{
-  margin-top:45px;
-  background:white;
-  border-radius:20px;
-  padding:45px;
-  box-shadow:0 10px 35px rgba(0,0,0,.08);
-}
-.calc-form{
-  display:grid;
-  gap:22px;
-}
-.calc-field{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  text-align:left;
-}
-.calc-field label{
-  font-weight:600;
-  color:var(--navy);
-  font-size:.95rem;
-}
-.calc-field select,
-.calc-field input{
-  padding:14px 16px;
-  border-radius:10px;
-  border:2px solid #e2e2e2;
-  font-family:'Poppins',sans-serif;
-  font-size:1rem;
-  color:var(--text);
-  background:white;
-  transition:.3s;
-}
-.calc-field select:focus,
-.calc-field input:focus{
-  outline:none;
-  border-color:var(--gold);
-}
-.calc-btn{
-  border:none;
-  cursor:pointer;
-  width:100%;
-  text-align:center;
-  font-family:'Poppins',sans-serif;
-  background:var(--gold);
-  color:var(--navy);
-  padding:18px 35px;
-  border-radius:10px;
-  font-weight:700;
-  font-size:1rem;
-  transition:.3s;
-}
-.calc-btn:hover{
-  transform:translateY(-3px);
-}
-.calc-resultado{
-  margin-top:35px;
-  padding-top:35px;
-  border-top:2px solid var(--light);
-  text-align:center;
-}
-.calc-label{
-  display:block;
-  font-size:.9rem;
-  font-weight:600;
-  color:var(--text);
-  margin-bottom:8px;
-}
-.calc-valor{
-  font-size:2.2rem;
-  font-weight:800;
-  color:var(--navy);
-  margin-bottom:12px;
-}
-.calc-obs{
-  margin-bottom:20px;
-  color:var(--text);
-}
-.calc-whatsapp{
-  display:inline-block;
-  background:#25D366;
-  color:white;
-  text-decoration:none;
-  padding:16px 32px;
-  border-radius:12px;
-  font-weight:700;
-}
-.calc-disclaimer{
-  margin-top:22px;
-  font-size:.8rem;
-  color:#999;
-  line-height:1.5;
-}
-.pulse{
-  animation:pulse .6s ease;
-}
-@keyframes pulse{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.03);}
-  100%{transform:scale(1);}
-}
-[hidden]{display:none !important;}
-@media(max-width:600px){
-  .calc-card{padding:30px 20px;}
-  .calc-valor{font-size:1.7rem;}
-  h2{font-size:1.9rem;}
-}
-</style>
 </head>
 <body>
 
-<div class="container">
-  <h2>Calcule uma estimativa da sua reforma</h2>
-  <p class="section-text">
-    Informe o ambiente e a metragem para ver uma estimativa em padrão intermediário de acabamento. É um ponto de partida — o valor final é fechado após uma visita técnica gratuita.
-  </p>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PC9CW56M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
-  <div class="calc-card">
-    <div class="calc-form">
-      <div class="calc-field">
-        <label for="calc-ambiente">O que você quer reformar?</label>
-        <select id="calc-ambiente">
-          <option value="completo">Casa ou apartamento completo</option>
-          <option value="banheiro">Banheiro</option>
-          <option value="cozinha">Cozinha</option>
-          <option value="quarto">Quarto</option>
-          <option value="sala">Sala</option>
-          <option value="area_servico">Área de serviço</option>
-          <option value="area_externa">Área externa / varanda</option>
-        </select>
+<header>
+  <div class="container nav">
+    <a href="#" class="logo">
+      <img src="assets/png_logo.png" alt="OBRABIT">
+      <div class="logo-info">
+        <div class="logo-name">
+          OBRA<span>BIT</span>
+        </div>
+        <div class="logo-desc">
+          CONSTRUÇÃO E REFORMA
+        </div>
       </div>
+    </a>
 
-      <div class="calc-field">
-        <label for="calc-metragem">Metragem (m²)</label>
-        <input type="number" id="calc-metragem" min="1" step="1" placeholder="Ex: 45">
+    <nav>
+      <a href="#sobre">Sobre</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#galeria">Obras</a>
+      <a href="#orcamento">Orçamento</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <!-- Botão 1 com evento gtag -->
+    <a class="btn-nav" target="_blank" href="https://wa.me/5521996401147" onclick="return gtag_report_conversion('https://wa.me/5521996401147');">
+      Solicitar Orçamento
+    </a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-content">
+    <div class="hero-text">
+      <h1>Quem cuida da sua obra enquanto você trabalha?</h1>
+      <p>
+        Reformas residenciais, comerciais e construção civil em todo o município do Rio de Janeiro. Qualidade, prazo e acompanhamento profissional.
+      </p>
+      <div class="hero-buttons">
+        <!-- Botão 2 com evento gtag -->
+        <a class="btn-primary" target="_blank" href="https://wa.me/5521996401147" onclick="return gtag_report_conversion('https://wa.me/5521996401147');">
+          Solicitar orçamento
+        </a>
+        <a class="btn-secondary" href="#servicos">
+          Ver serviços
+        </a>
       </div>
-
-      <button id="calc-btn" class="calc-btn" type="button">Calcular estimativa</button>
     </div>
 
-    <div id="calc-resultado" class="calc-resultado" hidden>
-      <span class="calc-label">Estimativa de investimento (padrão intermediário)</span>
-      <div class="calc-valor" id="calc-valor">R$ 0 – R$ 0</div>
-      <p class="calc-obs" id="calc-obs"></p>
-      <a id="calc-whatsapp" class="calc-whatsapp" target="_blank" href="#">
-        Solicitar orçamento detalhado
-      </a>
-      <p class="calc-disclaimer">
-        *Estimativa referencial para padrão intermediário de acabamento no Rio de Janeiro. Itens específicos (marcenaria sob medida, automação, materiais importados etc.) são ajustados após visita técnica gratuita.
-      </p>
+    <div class="hero-image">
+      <img src="assets/folder3.png" alt="Profissional OBRABIT">
     </div>
   </div>
-</div>
+</section>
 
+<section id="sobre" class="sobre">
+  <div class="container">
+    <h2>Seu lar, sem dor de cabeça</h2>
+    <p class="section-text">
+      A OBRABIT nasceu para oferecer soluções completas em construção, reforma e manutenção, entregando obras com qualidade, transparência e compromisso.
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Qualidade</h3>
+        <p>Materiais selecionados e mão de obra qualificada.</p>
+      </div>
+      <div class="card">
+        <h3>Compromisso</h3>
+        <p>Respeito aos prazos e comunicação transparente.</p>
+      </div>
+      <div class="card">
+        <h3>Confiança</h3>
+        <p>Acompanhamento profissional do início ao fim.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servicos" class="servicos">
+  <div class="container">
+    <h2>Serviços</h2>
+    <div class="grid-servicos">
+      <div class="servico"><h3>Reformas Residenciais</h3></div>
+      <div class="servico"><h3>Construção Civil</h3></div>
+      <div class="servico"><h3>Pintura</h3></div>
+      <div class="servico"><h3>Elétrica</h3></div>
+      <div class="servico"><h3>Hidráulica</h3></div>
+      <div class="servico"><h3>Acabamentos</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1243429899340228" crossorigin="anonymous"></script>
+<!-- Anuncio_galeria (Script duplicado removido) -->
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-1243429899340228"
+  data-ad-slot="4246016669"
+  data-ad-format="auto"
+  data-full-width-responsive="true"></ins>
 <script>
-// Preço médio por m² (padrão intermediário, Rio de Janeiro) — ajuste estes números
-// conforme sua realidade de custo e margem.
-const precosPorM2 = {
-  completo:     { min: 1700, max: 2300, label: "casa/apartamento completo" },
-  banheiro:     { min: 2500, max: 3000, label: "banheiro" },
-  cozinha:      { min: 2200, max: 2700, label: "cozinha" },
-  quarto:       { min: 1400, max: 1800, label: "quarto" },
-  sala:         { min: 1300, max: 1700, label: "sala" },
-  area_servico: { min: 1800, max: 2300, label: "área de serviço" },
-  area_externa: { min: 900,  max: 1300, label: "área externa/varanda" }
-};
-
-const NUMERO_WHATSAPP = "5521996401147";
-
-const calcBtn = document.getElementById("calc-btn");
-
-calcBtn.addEventListener("click", () => {
-  const ambienteEl = document.getElementById("calc-ambiente");
-  const metragemEl = document.getElementById("calc-metragem");
-  const resultado = document.getElementById("calc-resultado");
-  const valorEl = document.getElementById("calc-valor");
-  const obsEl = document.getElementById("calc-obs");
-  const whatsappEl = document.getElementById("calc-whatsapp");
-
-  const metragem = parseFloat(metragemEl.value);
-
-  if (!metragem || metragem <= 0) {
-    metragemEl.focus();
-    metragemEl.style.borderColor = "#d9534f";
-    setTimeout(() => { metragemEl.style.borderColor = ""; }, 1500);
-    return;
-  }
-
-  const ambiente = ambienteEl.value;
-  const preco = precosPorM2[ambiente];
-
-  const valorMin = Math.round(metragem * preco.min);
-  const valorMax = Math.round(metragem * preco.max);
-
-  const formatar = (v) => v.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-    maximumFractionDigits: 0
-  });
-
-  valorEl.textContent = `${formatar(valorMin)} – ${formatar(valorMax)}`;
-  obsEl.textContent = `Para ${metragem}m² de ${preco.label}, em padrão intermediário de acabamento.`;
-
-  const mensagem = `Olá, OBRABIT, fiz uma simulação no site e gostaria de reformar "${preco.label}" na metragem "${metragem}m²", valor aproximado deu "${formatar(valorMin)}" à "${formatar(valorMax)}".`;
-  whatsappEl.href = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensagem)}`;
-
-  resultado.hidden = false;
-  resultado.classList.remove("pulse");
-  void resultado.offsetWidth;
-  resultado.classList.add("pulse");
-
-  resultado.scrollIntoView({ behavior: "smooth", block: "nearest" });
-});
+  (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
+<section id="galeria" class="galeria">
+  <div class="container">
+    <h2>Obras Realizadas</h2>
+    <div class="grid-galeria">
+      <img src="assets/telhado1.jpeg" alt="">
+      <img src="assets/sala.jpg" alt="">
+      <img src="assets/quarto.jpeg" alt="">
+    </div>
+  </div>
+</section>
+
+<section class="diferenciais">
+  <div class="container">
+    <h2>Por que escolher a OBRABIT?</h2>
+    <div class="cards">
+      <div class="card">Atendimento Personalizado</div>
+      <div class="card">Planejamento Transparente</div>
+      <div class="card">Execução Especializada</div>
+      <div class="card">Acabamento de Qualidade</div>
+      <div class="card">Compromisso do Início ao Fim</div>
+    </div>
+  </div>
+</section>
+
+<section id="orcamento" class="orcamento">
+  <div class="container">
+    <h2>Calcule uma estimativa da sua reforma</h2>
+    <p class="section-text">
+      Informe o ambiente e a metragem para ver uma estimativa em padrão intermediário de acabamento. É um ponto de partida — o valor final é fechado após uma visita técnica gratuita.
+    </p>
+
+    <div class="calc-card">
+      <div class="calc-form">
+        <div class="calc-field">
+          <label for="calc-ambiente">O que você quer reformar?</label>
+          <select id="calc-ambiente">
+            <option value="completo">Casa ou apartamento completo</option>
+            <option value="banheiro">Banheiro</option>
+            <option value="cozinha">Cozinha</option>
+            <option value="quarto">Quarto</option>
+            <option value="sala">Sala</option>
+            <option value="area_servico">Área de serviço</option>
+            <option value="area_externa">Área externa / varanda</option>
+          </select>
+        </div>
+
+        <div class="calc-field">
+          <label for="calc-metragem">Metragem (m²)</label>
+          <input type="number" id="calc-metragem" min="1" step="1" placeholder="Ex: 45">
+        </div>
+
+        <button id="calc-btn" class="btn-primary calc-btn" type="button">Calcular estimativa</button>
+      </div>
+
+      <div id="calc-resultado" class="calc-resultado" hidden>
+        <span class="calc-label">Estimativa de investimento (padrão intermediário)</span>
+        <div class="calc-valor" id="calc-valor">R$ 0 – R$ 0</div>
+        <p class="calc-obs" id="calc-obs"></p>
+        <a id="calc-whatsapp" class="btn-whatsapp calc-whatsapp" target="_blank" href="#">
+          Solicitar orçamento detalhado
+        </a>
+        <p class="calc-disclaimer">
+          *Estimativa referencial para padrão intermediário de acabamento no Rio de Janeiro. Itens específicos (marcenaria sob medida, automação, materiais importados etc.) são ajustados após visita.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contato" class="contato">
+  <div class="container">
+    <h2>Solicite seu orçamento</h2>
+    <p>Fale diretamente conosco pelo WhatsApp.</p>
+    <!-- Botão 3 com evento gtag -->
+    <a class="btn-whatsapp" target="_blank" href="https://wa.me/5521996401147" onclick="return gtag_report_conversion('https://wa.me/5521996401147');">
+      Falar no WhatsApp
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <img src="assets/png_logo.png" alt="OBRABIT">
+    <p>© 2026 OBRABIT CONSTRUÇÃO E REFORMA LTDA</p>
+    <p>67.320.027/0001-32</p>
+    <p>Rio de Janeiro - RJ</p>
+  </div>
+</footer>
+
+<!-- Botão 4 flutuante com evento gtag -->
+<a class="whatsapp-float" target="_blank" href="https://wa.me/5521996401147" onclick="return gtag_report_conversion('https://wa.me/5521996401147');">
+  📱
+</a>
+
+<script src="script.js"></script>
 </body>
 </html>
