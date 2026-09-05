@@ -56,7 +56,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Preço médio por m² (padrão intermediário, Rio de Janeiro).
 // Ajuste estes números conforme sua realidade de custo e margem.
 const precosPorM2 = {
-  completo:     { min: 1900, max: 2400, label: "casa/apartamento completo" },
+  completo:     { min: 1600, max: 2300, label: "casa/apartamento completo" },
   banheiro:     { min: 2700, max: 3500, label: "banheiro" },
   cozinha:      { min: 2200, max: 2700, label: "cozinha" },
   quarto:       { min: 1400, max: 1800, label: "quarto" },
