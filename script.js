@@ -56,11 +56,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Preço médio por m² (padrão intermediário, Rio de Janeiro).
 // Ajuste estes números conforme sua realidade de custo e margem.
 const precosPorM2 = {
-  completo:     { min: 1600, max: 2300, label: "casa/apartamento completo" },
-  banheiro:     { min: 2700, max: 3500, label: "banheiro" },
+  completo:     { min: 1700, max: 2300, label: "casa/apartamento completo" },
+  banheiro:     { min: 2500, max: 3000, label: "banheiro" },
   cozinha:      { min: 2200, max: 2700, label: "cozinha" },
   quarto:       { min: 1400, max: 1800, label: "quarto" },
-  sala:         { min: 1400, max: 1800, label: "sala" },
+  sala:         { min: 1300, max: 1700, label: "sala" },
   area_servico: { min: 1800, max: 2300, label: "área de serviço" },
   area_externa: { min: 900,  max: 1300, label: "área externa/varanda" }
 };
@@ -102,7 +102,7 @@ if (calcBtn) {
     valorEl.textContent = `${formatar(valorMin)} – ${formatar(valorMax)}`;
     obsEl.textContent = `Para ${metragem}m² de ${preco.label}, em padrão intermediário de acabamento.`;
 
-    const mensagem = `Olá! Simulei no site da OBRABIT uma reforma de ${preco.label} com ${metragem}m², estimativa entre ${formatar(valorMin)} e ${formatar(valorMax)}. Gostaria de agendar uma visita para orçamento detalhado.`;
+    const mensagem = `Olá, OBRABIT, fiz uma simulação no site e gostaria de reformar "${preco.label}" na metragem "${metragem}m²", valor aproximado deu "${formatar(valorMin)}" à "${formatar(valorMax)}".`;
     whatsappEl.href = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensagem)}`;
 
     resultado.hidden = false;
