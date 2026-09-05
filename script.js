@@ -38,7 +38,7 @@ setInterval(() => {
 }, 3000);
 
 // SCROLL SUAVE
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+document.querySelectorAll('a[href^="#"]:not(#calc-whatsapp)').forEach(anchor => {
   anchor.addEventListener("click", function(e) {
     e.preventDefault();
     const target = document.querySelector(
