@@ -413,6 +413,58 @@ color:#999;
 line-height:1.5;
 }
 
+/* MODAL DE CAPTURA DE LEAD */
+.lead-modal-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(8,17,27,.75);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:1000;
+padding:20px;
+}
+.lead-modal-box{
+background:white;
+border-radius:20px;
+padding:40px;
+max-width:440px;
+width:100%;
+position:relative;
+text-align:left;
+}
+.lead-modal-box h3{
+margin-bottom:10px;
+}
+.lead-modal-box p{
+margin-bottom:20px;
+font-size:.95rem;
+}
+.lead-modal-box form{
+display:flex;
+flex-direction:column;
+gap:16px;
+}
+.lead-modal-close{
+position:absolute;
+top:16px;
+right:20px;
+background:none;
+border:none;
+font-size:1.8rem;
+line-height:1;
+cursor:pointer;
+color:var(--text);
+}
+.lead-form-status{
+font-size:.85rem;
+color:#c0392b;
+min-height:1.2em;
+}
+
 /* RESPONSIVO */
 @media(max-width:1024px){
 .hero h1{
@@ -439,6 +491,12 @@ font-size:3rem;
 .logo img{
 height:60px;
 }
+.calc-card{
+padding:30px 20px;
+}
+.calc-valor{
+font-size:1.7rem;
+}
 }
 @media(max-width:600px){
 .hero h1{
@@ -458,5 +516,8 @@ padding:30px 20px;
 }
 .calc-valor{
 font-size:1.7rem;
+}
+.lead-modal-box{
+padding:30px 20px;
 }
 }
