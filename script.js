@@ -52,7 +52,10 @@ document.querySelectorAll('a[href^="#"]:not(#calc-whatsapp)').forEach(anchor => 
   });
 });
 
-// CALCULADORA DE ORÇAMENTO
+// ================================================================
+// CALCULADORA DE ORÇAMENTO — LÓGICA DE CÁLCULO ORIGINAL (INTOCADA)
+// ================================================================
+
 // Preço médio por m² (padrão intermediário, Rio de Janeiro).
 // Ajuste estes números conforme sua realidade de custo e margem.
 const precosPorM2 = {
@@ -67,16 +70,23 @@ const precosPorM2 = {
 
 const NUMERO_WHATSAPP = "5521996401147";
 
+// >>> COLE AQUI A URL DO SEU APPS SCRIPT (Web App), depois de publicá-lo <<<
+const LEAD_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbz9a8v9uHJBdPuGgn8QvJ2VwIYLMyOyGgLt6u5IN8c7omiugy0pY_8CBqlXbc7TTRDVUg/exec";
+
+// Guarda o resultado já calculado, esperando o envio do lead para ser exibido
+let calculoPendente = null;
+
 const calcBtn = document.getElementById("calc-btn");
+const leadModal = document.getElementById("lead-modal");
+const leadForm = document.getElementById("lead-form");
+const leadFormBtn = document.getElementById("lead-form-btn");
+const leadFormStatus = document.getElementById("lead-form-status");
+const leadModalClose = document.getElementById("lead-modal-close");
 
 if (calcBtn) {
   calcBtn.addEventListener("click", () => {
     const ambienteEl = document.getElementById("calc-ambiente");
     const metragemEl = document.getElementById("calc-metragem");
-    const resultado = document.getElementById("calc-resultado");
-    const valorEl = document.getElementById("calc-valor");
-    const obsEl = document.getElementById("calc-obs");
-    const whatsappEl = document.getElementById("calc-whatsapp");
 
     const metragem = parseFloat(metragemEl.value);
 
@@ -90,26 +100,109 @@ if (calcBtn) {
     const ambiente = ambienteEl.value;
     const preco = precosPorM2[ambiente];
 
+    // --- CÁLCULO ORIGINAL (não alterado) ---
     const valorMin = Math.round(metragem * preco.min);
     const valorMax = Math.round(metragem * preco.max);
+    // --- FIM DO CÁLCULO ORIGINAL ---
 
-    const formatar = (v) => v.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-      maximumFractionDigits: 0
-    });
+    // Guarda o resultado calculado; ele só é exibido depois que o lead
+    // preencher nome, e-mail e telefone no modal.
+    calculoPendente = { ambiente, preco, metragem, valorMin, valorMax };
 
-    valorEl.textContent = `${formatar(valorMin)} – ${formatar(valorMax)}`;
-    obsEl.textContent = `Para ${metragem}m² de ${preco.label}, em padrão intermediário de acabamento.`;
+    document.getElementById("calc-resultado").hidden = true;
+    leadFormStatus.textContent = "";
+    leadModal.hidden = false;
+  });
+}
 
-    const mensagem = `Olá, OBRABIT, fiz uma simulação no site e gostaria de reformar "${preco.label}" na metragem "${metragem}m²", valor aproximado deu "${formatar(valorMin)}" à "${formatar(valorMax)}".`;
-    whatsappEl.href = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensagem)}`;
+// Formata e exibe o resultado — MESMA lógica de exibição original,
+// só movida para uma função para poder ser chamada após o lead.
+function exibirResultadoCalculadora(dados) {
+  const resultado = document.getElementById("calc-resultado");
+  const valorEl = document.getElementById("calc-valor");
+  const obsEl = document.getElementById("calc-obs");
+  const whatsappEl = document.getElementById("calc-whatsapp");
 
-    resultado.hidden = false;
-    resultado.classList.remove("pulse");
-    void resultado.offsetWidth; // reinicia a animação
-    resultado.classList.add("pulse");
+  const formatar = (v) => v.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    maximumFractionDigits: 0
+  });
 
-    resultado.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  valorEl.textContent = `${formatar(dados.valorMin)} – ${formatar(dados.valorMax)}`;
+  obsEl.textContent = `Para ${dados.metragem}m² de ${dados.preco.label}, em padrão intermediário de acabamento.`;
+
+  const mensagem = `Olá, OBRABIT, fiz uma simulação no site e gostaria de reformar "${dados.preco.label}" na metragem "${dados.metragem}m²", valor aproximado deu "${formatar(dados.valorMin)}" à "${formatar(dados.valorMax)}".`;
+  whatsappEl.href = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensagem)}`;
+
+  resultado.hidden = false;
+  resultado.classList.remove("pulse");
+  void resultado.offsetWidth; // reinicia a animação
+  resultado.classList.add("pulse");
+  resultado.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+// Envia nome, e-mail, telefone + resultado calculado para o Google Sheets
+if (leadForm) {
+  leadForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if (!calculoPendente) {
+      leadFormStatus.textContent = "Refaça o cálculo antes de continuar.";
+      return;
+    }
+
+    const nome = document.getElementById("lead-nome").value.trim();
+    const email = document.getElementById("lead-email").value.trim();
+    const telefone = document.getElementById("lead-telefone").value.trim();
+
+    if (!nome || !email || !telefone) {
+      leadFormStatus.textContent = "Preencha todos os campos.";
+      return;
+    }
+
+    leadFormBtn.disabled = true;
+    leadFormBtn.textContent = "Enviando...";
+    leadFormStatus.textContent = "";
+
+    const payload = {
+      nome,
+      email,
+      telefone,
+      ambiente: calculoPendente.ambiente,
+      metragem: calculoPendente.metragem,
+      valorMin: calculoPendente.valorMin,
+      valorMax: calculoPendente.valorMax,
+      data: new Date().toISOString()
+    };
+
+    try {
+      // "no-cors" porque o Apps Script Web App não responde com cabeçalhos CORS por padrão.
+      // Não conseguimos ler a resposta, mas o registro na planilha acontece normalmente.
+      await fetch(LEAD_ENDPOINT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      console.error("Erro ao registrar lead:", err);
+      // Mesmo se o registro falhar, seguimos mostrando o resultado ao usuário.
+    }
+
+    exibirResultadoCalculadora(calculoPendente);
+
+    leadModal.hidden = true;
+    leadForm.reset();
+    leadFormBtn.disabled = false;
+    leadFormBtn.textContent = "Ver minha estimativa";
+    calculoPendente = null;
+  });
+}
+
+// Fecha o modal sem enviar (o resultado não é exibido nesse caso)
+if (leadModalClose) {
+  leadModalClose.addEventListener("click", () => {
+    leadModal.hidden = true;
   });
 }
