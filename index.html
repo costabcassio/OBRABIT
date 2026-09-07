@@ -233,6 +233,32 @@ function gtag_report_conversion(url) {
   </div>
 </section>
 
+<!-- Modal de captura de lead — aparece depois de "Calcular estimativa" e antes do resultado -->
+<div id="lead-modal" class="lead-modal-overlay" hidden>
+  <div class="lead-modal-box">
+    <button type="button" id="lead-modal-close" class="lead-modal-close" aria-label="Fechar">&times;</button>
+    <h3>Falta pouco!</h3>
+    <p>Informe seus dados para ver a estimativa da sua reforma.</p>
+
+    <form id="lead-form">
+      <div class="calc-field">
+        <label for="lead-nome">Nome</label>
+        <input type="text" id="lead-nome" required>
+      </div>
+      <div class="calc-field">
+        <label for="lead-email">E-mail</label>
+        <input type="email" id="lead-email" required>
+      </div>
+      <div class="calc-field">
+        <label for="lead-telefone">Telefone / WhatsApp</label>
+        <input type="tel" id="lead-telefone" placeholder="(21) 9XXXX-XXXX" required>
+      </div>
+      <button type="submit" class="btn-primary calc-btn" id="lead-form-btn">Ver minha estimativa</button>
+      <p id="lead-form-status" class="lead-form-status"></p>
+    </form>
+  </div>
+</div>
+
 <section id="contato" class="contato">
   <div class="container">
     <h2>Solicite seu orçamento</h2>
