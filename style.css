@@ -427,6 +427,11 @@ justify-content:center;
 z-index:1000;
 padding:20px;
 }
+/* IMPORTANTE: sem esta regra, o atributo "hidden" do HTML é
+   sobrescrito pelo display:flex acima e o modal fica sempre visível */
+.lead-modal-overlay[hidden]{
+display:none;
+}
 .lead-modal-box{
 background:white;
 border-radius:20px;
