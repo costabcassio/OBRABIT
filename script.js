@@ -1,4 +1,23 @@
+// ============================================================
+// CONFIGURAÇÃO
+// ============================================================
+// Cole aqui a URL do seu Web App do Google Apps Script
+// (Implantar > Nova implantação > Aplicativo da Web > URL gerada)
+const GOOGLE_SHEETS_WEBHOOK_URL = "COLE_AQUI_A_URL_DO_SEU_APPS_SCRIPT";
+
+// Tabela de preços por m² (valores aproximados — ajuste para a realidade da OBRABIT)
+const TABELA_PRECOS = {
+  "Banheiro": { min: 800, max: 1500 },
+  "Cozinha": { min: 900, max: 1600 },
+  "Sala": { min: 400, max: 700 },
+  "Quarto": { min: 350, max: 650 },
+  "Área externa / Varanda": { min: 500, max: 900 },
+  "Reforma completa (apto/casa)": { min: 1200, max: 2200 }
+};
+
+// ============================================================
 // HEADER COM EFEITO AO ROLAR
+// ============================================================
 const header = document.querySelector("header");
 window.addEventListener("scroll", () => {
   if (window.scrollY > 50) {
@@ -10,7 +29,9 @@ window.addEventListener("scroll", () => {
   }
 });
 
+// ============================================================
 // ANIMAÇÃO DE ENTRADA
+// ============================================================
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
@@ -28,7 +49,9 @@ document.querySelectorAll(
   observer.observe(el);
 });
 
+// ============================================================
 // EFEITO PULSANTE NO WHATSAPP
+// ============================================================
 const whatsapp = document.querySelector(".whatsapp-float");
 setInterval(() => {
   whatsapp.classList.add("pulse");
@@ -37,8 +60,10 @@ setInterval(() => {
   }, 1000);
 }, 3000);
 
+// ============================================================
 // SCROLL SUAVE
-document.querySelectorAll('a[href^="#"]:not(#calc-whatsapp)').forEach(anchor => {
+// ============================================================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener("click", function(e) {
     e.preventDefault();
     const target = document.querySelector(
@@ -52,157 +77,158 @@ document.querySelectorAll('a[href^="#"]:not(#calc-whatsapp)').forEach(anchor => 
   });
 });
 
-// ================================================================
-// CALCULADORA DE ORÇAMENTO — LÓGICA DE CÁLCULO ORIGINAL (INTOCADA)
-// ================================================================
-
-// Preço médio por m² (padrão intermediário, Rio de Janeiro).
-// Ajuste estes números conforme sua realidade de custo e margem.
-const precosPorM2 = {
-  completo:     { min: 1700, max: 2300, label: "casa/apartamento completo" },
-  banheiro:     { min: 2500, max: 3000, label: "banheiro" },
-  cozinha:      { min: 2200, max: 2700, label: "cozinha" },
-  quarto:       { min: 1400, max: 1800, label: "quarto" },
-  sala:         { min: 1300, max: 1700, label: "sala" },
-  area_servico: { min: 1800, max: 2300, label: "área de serviço" },
-  area_externa: { min: 900,  max: 1300, label: "área externa/varanda" }
-};
-
-const NUMERO_WHATSAPP = "5521996401147";
-
-// >>> COLE AQUI A URL DO SEU APPS SCRIPT (Web App), depois de publicá-lo <<<
-const LEAD_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbz9a8v9uHJBdPuGgn8QvJ2VwIYLMyOyGgLt6u5IN8c7omiugy0pY_8CBqlXbc7TTRDVUg/exec";
-
-// Guarda o resultado já calculado, esperando o envio do lead para ser exibido
-let calculoPendente = null;
-
+// ============================================================
+// CALCULADORA DE ORÇAMENTO + MODAL DE LEAD
+// ============================================================
 const calcBtn = document.getElementById("calc-btn");
+const calcAmbiente = document.getElementById("calc-ambiente");
+const calcMetragem = document.getElementById("calc-metragem");
+const calcErro = document.getElementById("calc-erro");
+
 const leadModal = document.getElementById("lead-modal");
-const leadForm = document.getElementById("lead-form");
-const leadFormBtn = document.getElementById("lead-form-btn");
-const leadFormStatus = document.getElementById("lead-form-status");
 const leadModalClose = document.getElementById("lead-modal-close");
+const leadForm = document.getElementById("lead-form");
+const leadErro = document.getElementById("lead-erro");
+const leadSubmit = document.getElementById("lead-submit");
+
+const resultadoBox = document.getElementById("resultado-box");
+const resultadoTexto = document.getElementById("resultado-texto");
+
+let estimativaAtual = null; // guarda ambiente/metragem/valorMin/valorMax calculados
+
+function abrirModal() {
+  leadModal.style.display = "flex";
+  document.body.style.overflow = "hidden";
+}
+
+function fecharModal() {
+  leadModal.style.display = "none";
+  document.body.style.overflow = "";
+}
 
 if (calcBtn) {
   calcBtn.addEventListener("click", () => {
-    const ambienteEl = document.getElementById("calc-ambiente");
-    const metragemEl = document.getElementById("calc-metragem");
+    calcErro.textContent = "";
 
-    const metragem = parseFloat(metragemEl.value);
+    const ambiente = calcAmbiente.value;
+    const metragem = parseFloat(calcMetragem.value);
 
+    if (!ambiente) {
+      calcErro.textContent = "Selecione o ambiente da reforma.";
+      return;
+    }
     if (!metragem || metragem <= 0) {
-      metragemEl.focus();
-      metragemEl.style.borderColor = "#d9534f";
-      setTimeout(() => { metragemEl.style.borderColor = ""; }, 1500);
+      calcErro.textContent = "Informe uma metragem válida.";
       return;
     }
 
-    const ambiente = ambienteEl.value;
-    const preco = precosPorM2[ambiente];
+    const faixa = TABELA_PRECOS[ambiente];
+    const valorMin = Math.round(faixa.min * metragem);
+    const valorMax = Math.round(faixa.max * metragem);
 
-    // --- CÁLCULO ORIGINAL (não alterado) ---
-    const valorMin = Math.round(metragem * preco.min);
-    const valorMax = Math.round(metragem * preco.max);
-    // --- FIM DO CÁLCULO ORIGINAL ---
+    estimativaAtual = { ambiente, metragem, valorMin, valorMax };
 
-    // Guarda o resultado calculado; ele só é exibido depois que o lead
-    // preencher nome, e-mail e telefone no modal.
-    calculoPendente = { ambiente, preco, metragem, valorMin, valorMax };
-
-    document.getElementById("calc-resultado").hidden = true;
-    leadFormStatus.textContent = "";
-    leadModal.hidden = false;
+    abrirModal();
   });
 }
 
-// Formata e exibe o resultado — MESMA lógica de exibição original,
-// só movida para uma função para poder ser chamada após o lead.
-function exibirResultadoCalculadora(dados) {
-  const resultado = document.getElementById("calc-resultado");
-  const valorEl = document.getElementById("calc-valor");
-  const obsEl = document.getElementById("calc-obs");
-  const whatsappEl = document.getElementById("calc-whatsapp");
-
-  const formatar = (v) => v.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-    maximumFractionDigits: 0
-  });
-
-  valorEl.textContent = `${formatar(dados.valorMin)} – ${formatar(dados.valorMax)}`;
-  obsEl.textContent = `Para ${dados.metragem}m² de ${dados.preco.label}, em padrão intermediário de acabamento.`;
-
-  const mensagem = `Olá, OBRABIT, fiz uma simulação no site e gostaria de reformar "${dados.preco.label}" na metragem "${dados.metragem}m²", valor aproximado deu "${formatar(dados.valorMin)}" à "${formatar(dados.valorMax)}".`;
-  whatsappEl.href = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensagem)}`;
-
-  resultado.hidden = false;
-  resultado.classList.remove("pulse");
-  void resultado.offsetWidth; // reinicia a animação
-  resultado.classList.add("pulse");
-  resultado.scrollIntoView({ behavior: "smooth", block: "nearest" });
+if (leadModalClose) {
+  leadModalClose.addEventListener("click", fecharModal);
 }
 
-// Envia nome, e-mail, telefone + resultado calculado para o Google Sheets
+// fecha clicando fora do card
+if (leadModal) {
+  leadModal.addEventListener("click", (e) => {
+    if (e.target === leadModal) {
+      fecharModal();
+    }
+  });
+}
+
 if (leadForm) {
-  leadForm.addEventListener("submit", async (e) => {
+  leadForm.addEventListener("submit", (e) => {
     e.preventDefault();
+    leadErro.textContent = "";
 
-    if (!calculoPendente) {
-      leadFormStatus.textContent = "Refaça o cálculo antes de continuar.";
+    if (!estimativaAtual) {
+      fecharModal();
       return;
     }
 
     const nome = document.getElementById("lead-nome").value.trim();
     const email = document.getElementById("lead-email").value.trim();
     const telefone = document.getElementById("lead-telefone").value.trim();
+    const aceitaContatoEl = leadForm.querySelector('input[name="aceitaContato"]:checked');
 
     if (!nome || !email || !telefone) {
-      leadFormStatus.textContent = "Preencha todos os campos.";
+      leadErro.textContent = "Preencha todos os campos.";
+      return;
+    }
+    if (!aceitaContatoEl) {
+      leadErro.textContent = "Selecione se deseja receber contato da OBRABIT.";
       return;
     }
 
-    leadFormBtn.disabled = true;
-    leadFormBtn.textContent = "Enviando...";
-    leadFormStatus.textContent = "";
+    const aceitaContato = aceitaContatoEl.value; // "Sim" ou "Não"
 
-    const payload = {
-      nome,
-      email,
-      telefone,
-      ambiente: calculoPendente.ambiente,
-      metragem: calculoPendente.metragem,
-      valorMin: calculoPendente.valorMin,
-      valorMax: calculoPendente.valorMax,
-      data: new Date().toISOString()
+    const dados = {
+      data: new Date().toISOString(),
+      nome: nome,
+      email: email,
+      telefone: telefone,
+      ambiente: estimativaAtual.ambiente,
+      metragem: estimativaAtual.metragem,
+      valorMin: estimativaAtual.valorMin,
+      valorMax: estimativaAtual.valorMax,
+      aceitaContato: aceitaContato
     };
 
-    try {
-      // "no-cors" porque o Apps Script Web App não responde com cabeçalhos CORS por padrão.
-      // Não conseguimos ler a resposta, mas o registro na planilha acontece normalmente.
-      await fetch(LEAD_ENDPOINT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload)
+    leadSubmit.disabled = true;
+    leadSubmit.textContent = "Enviando...";
+
+    enviarLead(dados)
+      .then(() => {
+        mostrarResultado(dados);
+        fecharModal();
+        leadForm.reset();
+      })
+      .catch(() => {
+        // Mesmo se o envio falhar silenciosamente (modo no-cors),
+        // ainda mostramos a estimativa para não travar a experiência do usuário.
+        mostrarResultado(dados);
+        fecharModal();
+        leadForm.reset();
+      })
+      .finally(() => {
+        leadSubmit.disabled = false;
+        leadSubmit.textContent = "Ver minha estimativa";
       });
-    } catch (err) {
-      console.error("Erro ao registrar lead:", err);
-      // Mesmo se o registro falhar, seguimos mostrando o resultado ao usuário.
-    }
-
-    exibirResultadoCalculadora(calculoPendente);
-
-    leadModal.hidden = true;
-    leadForm.reset();
-    leadFormBtn.disabled = false;
-    leadFormBtn.textContent = "Ver minha estimativa";
-    calculoPendente = null;
   });
 }
 
-// Fecha o modal sem enviar (o resultado não é exibido nesse caso)
-if (leadModalClose) {
-  leadModalClose.addEventListener("click", () => {
-    leadModal.hidden = true;
+function enviarLead(dados) {
+  if (!GOOGLE_SHEETS_WEBHOOK_URL || GOOGLE_SHEETS_WEBHOOK_URL.indexOf("COLE_AQUI") !== -1) {
+    console.warn("Configure a URL do Google Apps Script em GOOGLE_SHEETS_WEBHOOK_URL.");
+    return Promise.resolve();
+  }
+
+  // Content-Type text/plain evita o preflight CORS que o Apps Script não trata.
+  return fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(dados)
   });
+}
+
+function mostrarResultado(dados) {
+  if (!resultadoBox || !resultadoTexto) return;
+
+  const min = Number(dados.valorMin).toLocaleString("pt-BR");
+  const max = Number(dados.valorMax).toLocaleString("pt-BR");
+
+  resultadoTexto.textContent =
+    dados.ambiente + " (" + dados.metragem + " m²): entre R$ " + min + " e R$ " + max;
+
+  resultadoBox.style.display = "block";
+  resultadoBox.scrollIntoView({ behavior: "smooth", block: "center" });
 }
