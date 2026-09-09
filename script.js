@@ -25,8 +25,14 @@ const observer = new IntersectionObserver((entries) => {
   threshold: 0.15
 });
 
+// OBS: ".card" e ".servico" foram removidos da animação de entrada.
+// Eles usam texto essencial para a proposta de valor (pilares, serviços,
+// diferenciais e compromissos) — deixar a visibilidade desse texto
+// dependente de scroll + IntersectionObserver criava risco real de o
+// conteúdo ficar invisível (opacity:0) em conexões lentas, navegação
+// rápida ou qualquer falha de JS. Agora só as fotos da galeria animam.
 document.querySelectorAll(
-  ".card, .servico, .grid-galeria img"
+  ".grid-galeria img"
 ).forEach((el) => {
   el.classList.add("hidden");
   observer.observe(el);
