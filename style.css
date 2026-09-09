@@ -26,6 +26,7 @@ margin:auto;
 }
 section{
 padding:100px 0;
+scroll-margin-top:calc(var(--header-height, 95px) + 18px);
 }
 h1,h2,h3{
 color:var(--navy);
@@ -213,7 +214,8 @@ margin-bottom:15px;
 }
 
 .checklist{
-max-width:700px;
+width:max-content;
+max-width:100%;
 margin:45px auto 0;
 list-style:none;
 display:grid;
@@ -225,6 +227,7 @@ padding-left:34px;
 font-weight:600;
 color:var(--navy);
 text-align:left;
+white-space:nowrap;
 }
 .checklist li::before{
 content:"✔";
@@ -611,7 +614,7 @@ height:50px;
 html{scroll-padding-top:var(--header-height);}
 body{line-height:1.6;}
 .container{width:min(1180px, calc(100% - 48px));}
-section{padding:88px 0;}
+section{padding:88px 0;scroll-margin-top:calc(var(--header-height) + 18px);}
 
 /* Cabeçalho: mantém o desktop equilibrado e prepara o menu compacto */
 .nav{height:var(--header-height);gap:24px;}
@@ -686,6 +689,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
   .cards,.grid-servicos{grid-template-columns:1fr;gap:16px;margin-top:32px;}
   .card{border-radius:16px;}
   .checklist{margin-top:32px;gap:12px;}
+  .checklist{width:100%;}
+  .checklist li{white-space:normal;}
   .grid-galeria{grid-template-columns:1fr;gap:16px;}
   .grid-galeria img{height:240px;border-radius:16px;}
   .calc-box{margin-top:30px;border-radius:16px;}
