@@ -71,7 +71,7 @@ const precosPorM2 = {
 const NUMERO_WHATSAPP = "5521996401147";
 
 // >>> COLE AQUI A URL DO SEU APPS SCRIPT (Web App), depois de publicá-lo <<<
-const LEAD_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbz9a8v9uHJBdPuGgn8QvJ2VwIYLMyOyGgLt6u5IN8c7omiugy0pY_8CBqlXbc7TTRDVUg/exec";
+const LEAD_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbwDjmkSiz7k-yDKaAb4twsmvoy0ayi5NADCYnF0YxwKtMN3Il95hYe3hHiP4JW2b7Ghzg/exec";
 
 // Guarda o resultado já calculado, esperando o envio do lead para ser exibido
 let calculoPendente = null;
