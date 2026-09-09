@@ -168,6 +168,10 @@ text-decoration:none;
 padding:18px 35px;
 border-radius:10px;
 font-weight:700;
+border:none;
+cursor:pointer;
+font-family:inherit;
+font-size:1rem;
 }
 .btn-secondary{
 border:2px solid white;
@@ -231,6 +235,85 @@ color:var(--navy);
 }
 .servico:hover h3{
 color:var(--navy);
+}
+
+/* ===================== CALCULADORA DE ORÇAMENTO ===================== */
+.orcamento{
+background:var(--light);
+}
+.calc-box{
+max-width:900px;
+margin:50px auto 0;
+background:white;
+border-radius:20px;
+box-shadow:0 10px 35px rgba(0,0,0,.08);
+padding:40px;
+display:grid;
+grid-template-columns:1fr 1fr auto;
+gap:20px;
+align-items:end;
+}
+.calc-field{
+display:flex;
+flex-direction:column;
+gap:8px;
+text-align:left;
+}
+.calc-field label{
+font-weight:600;
+color:var(--navy);
+font-size:.95rem;
+}
+.calc-field select,
+.calc-field input{
+padding:14px 16px;
+border:1px solid #ddd;
+border-radius:10px;
+font-family:inherit;
+font-size:1rem;
+color:var(--navy);
+}
+.calc-btn{
+white-space:nowrap;
+padding:16px 30px;
+}
+.calc-erro{
+max-width:900px;
+margin:15px auto 0;
+color:#C0392B;
+font-weight:600;
+text-align:center;
+min-height:1.2em;
+}
+.resultado-box{
+max-width:900px;
+margin:30px auto 0;
+background:var(--navy);
+color:white;
+border-radius:20px;
+padding:35px 40px;
+text-align:center;
+}
+.resultado-box h3{
+color:var(--gold);
+margin-bottom:12px;
+}
+.resultado-box p{
+font-size:1.3rem;
+font-weight:600;
+color:white;
+}
+.resultado-obs{
+margin-top:10px;
+font-size:.9rem !important;
+font-weight:400 !important;
+color:#cfd6dd !important;
+}
+
+@media(max-width:700px){
+.calc-box{
+grid-template-columns:1fr;
+}
 }
 
 /* GALERIA */
@@ -311,6 +394,107 @@ box-shadow:0 10px 30px rgba(0,0,0,.3);
 z-index:999;
 }
 
+/* ===================== MODAL "FALTA POUCO!" ===================== */
+.lead-modal-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(15,26,38,.75);
+z-index:1200;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+.lead-modal{
+position:relative;
+background:white;
+width:100%;
+max-width:460px;
+border-radius:20px;
+padding:40px 35px 35px;
+box-shadow:0 25px 60px rgba(0,0,0,.35);
+max-height:90vh;
+overflow-y:auto;
+}
+.lead-modal-close{
+position:absolute;
+top:18px;
+right:20px;
+background:none;
+border:none;
+font-size:1.8rem;
+line-height:1;
+color:var(--navy);
+cursor:pointer;
+}
+.lead-modal h3{
+font-size:1.6rem;
+margin-bottom:10px;
+}
+.lead-modal-sub{
+color:var(--text);
+margin-bottom:25px;
+font-size:.95rem;
+}
+.lead-field{
+margin-bottom:20px;
+text-align:left;
+}
+.lead-field label{
+display:block;
+font-weight:700;
+color:var(--navy);
+margin-bottom:8px;
+font-size:.95rem;
+}
+.lead-field input[type="text"],
+.lead-field input[type="email"],
+.lead-field input[type="tel"]{
+width:100%;
+padding:14px 16px;
+border:1px solid #ddd;
+border-radius:10px;
+font-family:inherit;
+font-size:1rem;
+color:var(--navy);
+}
+.lead-consent-label{
+font-weight:700;
+color:var(--navy);
+margin-bottom:10px;
+font-size:.95rem;
+display:block;
+}
+.lead-consent-options{
+display:flex;
+gap:20px;
+}
+.lead-radio{
+display:flex;
+align-items:center;
+gap:8px;
+font-weight:600;
+color:var(--navy);
+cursor:pointer;
+}
+.lead-radio input{
+width:18px;
+height:18px;
+accent-color:var(--gold);
+cursor:pointer;
+}
+.lead-submit{
+width:100%;
+margin-top:5px;
+}
+.lead-submit:disabled{
+opacity:.6;
+cursor:not-allowed;
+}
+
 /* ANIMAÇÕES */
 .hidden{
 opacity:0;
@@ -328,146 +512,6 @@ animation:pulse 1s ease;
 0%{transform:scale(1);}
 50%{transform:scale(1.15);}
 100%{transform:scale(1);}
-}
-
-/* ORÇAMENTO / CALCULADORA */
-.orcamento{
-background:var(--light);
-}
-.calc-card{
-max-width:640px;
-margin:50px auto 0;
-background:white;
-border-radius:20px;
-padding:45px;
-box-shadow:0 10px 35px rgba(0,0,0,.08);
-}
-.calc-form{
-display:grid;
-gap:22px;
-}
-.calc-field{
-display:flex;
-flex-direction:column;
-gap:8px;
-text-align:left;
-}
-.calc-field label{
-font-weight:600;
-color:var(--navy);
-font-size:.95rem;
-}
-.calc-field select,
-.calc-field input{
-padding:14px 16px;
-border-radius:10px;
-border:2px solid #e2e2e2;
-font-family:'Poppins',sans-serif;
-font-size:1rem;
-color:var(--text);
-background:white;
-transition:.3s;
-}
-.calc-field select:focus,
-.calc-field input:focus{
-outline:none;
-border-color:var(--gold);
-}
-.calc-btn{
-border:none;
-cursor:pointer;
-width:100%;
-text-align:center;
-font-family:'Poppins',sans-serif;
-}
-.calc-resultado{
-margin-top:35px;
-padding-top:35px;
-border-top:2px solid var(--light);
-text-align:center;
-}
-.calc-label{
-display:block;
-font-size:.9rem;
-font-weight:600;
-color:var(--text);
-margin-bottom:8px;
-}
-.calc-valor{
-font-size:2.2rem;
-font-weight:800;
-color:var(--navy);
-margin-bottom:12px;
-}
-.calc-obs{
-margin-bottom:20px;
-color:var(--text);
-}
-.calc-whatsapp{
-display:inline-block;
-}
-.calc-disclaimer{
-margin-top:20px;
-font-size:.8rem;
-color:#999;
-line-height:1.5;
-}
-
-/* MODAL DE CAPTURA DE LEAD */
-.lead-modal-overlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(8,17,27,.75);
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:1000;
-padding:20px;
-}
-/* IMPORTANTE: sem esta regra, o atributo "hidden" do HTML é
-   sobrescrito pelo display:flex acima e o modal fica sempre visível */
-.lead-modal-overlay[hidden]{
-display:none;
-}
-.lead-modal-box{
-background:white;
-border-radius:20px;
-padding:40px;
-max-width:440px;
-width:100%;
-position:relative;
-text-align:left;
-}
-.lead-modal-box h3{
-margin-bottom:10px;
-}
-.lead-modal-box p{
-margin-bottom:20px;
-font-size:.95rem;
-}
-.lead-modal-box form{
-display:flex;
-flex-direction:column;
-gap:16px;
-}
-.lead-modal-close{
-position:absolute;
-top:16px;
-right:20px;
-background:none;
-border:none;
-font-size:1.8rem;
-line-height:1;
-cursor:pointer;
-color:var(--text);
-}
-.lead-form-status{
-font-size:.85rem;
-color:#c0392b;
-min-height:1.2em;
 }
 
 /* RESPONSIVO */
@@ -496,12 +540,6 @@ font-size:3rem;
 .logo img{
 height:60px;
 }
-.calc-card{
-padding:30px 20px;
-}
-.calc-valor{
-font-size:1.7rem;
-}
 }
 @media(max-width:600px){
 .hero h1{
@@ -515,14 +553,5 @@ display:none;
 }
 .logo img{
 height:50px;
-}
-.calc-card{
-padding:30px 20px;
-}
-.calc-valor{
-font-size:1.7rem;
-}
-.lead-modal-box{
-padding:30px 20px;
 }
 }
