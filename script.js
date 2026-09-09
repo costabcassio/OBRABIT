@@ -83,6 +83,7 @@ const calcMetragem = document.getElementById("calc-metragem");
 const calcErro = document.getElementById("calc-erro");
 const resultadoBox = document.getElementById("resultado-box");
 const resultadoTexto = document.getElementById("resultado-texto");
+const resultadoWhatsapp = document.getElementById("resultado-whatsapp");
 
 // Elementos do modal de lead
 const leadModal = document.getElementById("lead-modal");
@@ -208,15 +209,19 @@ if (leadForm) {
 }
 
 function mostrarResultado(dados) {
-  const min = Number(dados.valorMin).toLocaleString("pt-BR", {
-    style: "currency", currency: "BRL", maximumFractionDigits: 0
-  });
-  const max = Number(dados.valorMax).toLocaleString("pt-BR", {
+  const formatar = (v) => Number(v).toLocaleString("pt-BR", {
     style: "currency", currency: "BRL", maximumFractionDigits: 0
   });
 
   resultadoTexto.textContent =
-    dados.ambiente + " (" + dados.metragem + " m²): entre " + min + " e " + max;
+    dados.ambiente + " (" + dados.metragem + " m²): entre " + formatar(dados.valorMin) + " e " + formatar(dados.valorMax);
+
+  if (resultadoWhatsapp) {
+    const mensagem = "Olá, OBRABIT! Fiz uma simulação no site: " + dados.ambiente +
+      " (" + dados.metragem + "m²), estimativa entre " + formatar(dados.valorMin) +
+      " e " + formatar(dados.valorMax) + ". Gostaria de um orçamento detalhado.";
+    resultadoWhatsapp.href = "https://wa.me/" + NUMERO_WHATSAPP + "?text=" + encodeURIComponent(mensagem);
+  }
 
   resultadoBox.style.display = "block";
   resultadoBox.scrollIntoView({ behavior: "smooth", block: "center" });
