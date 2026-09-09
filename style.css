@@ -303,11 +303,22 @@ font-size:1.3rem;
 font-weight:600;
 color:white;
 }
+.resultado-whatsapp{
+display:inline-block;
+margin-top:20px;
+}
 .resultado-obs{
-margin-top:10px;
+margin-top:20px;
 font-size:.9rem !important;
 font-weight:400 !important;
 color:#cfd6dd !important;
+}
+.resultado-disclaimer{
+margin-top:10px;
+font-size:.78rem !important;
+font-weight:400 !important;
+color:#8b95a1 !important;
+line-height:1.5;
 }
 
 @media(max-width:700px){
