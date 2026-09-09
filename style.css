@@ -212,6 +212,29 @@ transform:translateY(-10px);
 margin-bottom:15px;
 }
 
+.checklist{
+max-width:700px;
+margin:45px auto 0;
+list-style:none;
+display:grid;
+gap:14px;
+}
+.checklist li{
+position:relative;
+padding-left:34px;
+font-weight:600;
+color:var(--navy);
+text-align:left;
+}
+.checklist li::before{
+content:"✔";
+position:absolute;
+left:0;
+top:0;
+color:var(--gold);
+font-weight:700;
+}
+
 /* SERVIÇOS */
 .grid-servicos{
 display:grid;
@@ -228,12 +251,20 @@ transition:.3s;
 }
 .servico h3{
 color:white;
+margin-bottom:10px;
+}
+.servico p{
+color:#cfd6dd;
+font-size:.95rem;
 }
 .servico:hover{
 background:var(--gold);
 color:var(--navy);
 }
 .servico:hover h3{
+color:var(--navy);
+}
+.servico:hover p{
 color:var(--navy);
 }
 
@@ -345,6 +376,11 @@ transition:.4s;
 }
 .grid-galeria img:hover{
 transform:scale(1.03);
+}
+
+/* COMPROMISSOS */
+.compromissos{
+background:var(--light);
 }
 
 /* CONTATO */
