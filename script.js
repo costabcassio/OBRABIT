@@ -232,3 +232,38 @@ function mostrarResultado(dados) {
   resultadoBox.style.display = "block";
   resultadoBox.scrollIntoView({ behavior: "smooth", block: "center" });
 }
+
+
+// ============================================================
+// MENU MOBILE
+// ============================================================
+const menuToggle = document.querySelector(".menu-toggle");
+const mobileMenu = document.querySelector("#mobile-menu");
+
+if (menuToggle && mobileMenu) {
+  const fecharMenu = () => {
+    mobileMenu.classList.remove("is-open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Abrir menu");
+  };
+
+  menuToggle.addEventListener("click", () => {
+    const aberto = mobileMenu.classList.toggle("is-open");
+    menuToggle.setAttribute("aria-expanded", String(aberto));
+    menuToggle.setAttribute("aria-label", aberto ? "Fechar menu" : "Abrir menu");
+  });
+
+  mobileMenu.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", fecharMenu);
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+      fecharMenu();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 900) fecharMenu();
+  });
+}
