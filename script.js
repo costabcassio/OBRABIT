@@ -165,7 +165,7 @@ if (leadForm) {
     const cep = document.getElementById("lead-cep").value.trim();
     const aceitaContatoEl = leadForm.querySelector('input[name="aceitaContato"]:checked');
 
-    if (!nome || !email || !telefone || cep) {
+    if (!nome || !email || !telefone || !cep) {
       leadErro.textContent = "Preencha todos os campos.";
       return;
     }
