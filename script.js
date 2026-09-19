@@ -162,9 +162,10 @@ if (leadForm) {
     const nome = document.getElementById("lead-nome").value.trim();
     const email = document.getElementById("lead-email").value.trim();
     const telefone = document.getElementById("lead-telefone").value.trim();
+    const cep = document.getElementById("lead-cep").value.trim();
     const aceitaContatoEl = leadForm.querySelector('input[name="aceitaContato"]:checked');
 
-    if (!nome || !email || !telefone) {
+    if (!nome || !email || !telefone || cep) {
       leadErro.textContent = "Preencha todos os campos.";
       return;
     }
@@ -184,7 +185,8 @@ if (leadForm) {
       metragem: estimativaAtual.metragem,
       valorMin: estimativaAtual.valorMin,
       valorMax: estimativaAtual.valorMax,
-      aceitaContato
+      aceitaContato,
+      cep
     };
 
     leadSubmit.disabled = true;
