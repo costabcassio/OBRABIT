@@ -80,7 +80,7 @@ const precosPorM2 = {
 const NUMERO_WHATSAPP = "5521996401147";
 
 // URL do Web App do Apps Script (Extensões > Apps Script > Implantar)
-const LEAD_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzOttWZT473RzFpifiea4f311mVpH49DHJmOBDpvHXU_9EP6nF94fJDgalcjT9hKcMb/exec";
+const LEAD_ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbz6gx0UiVkvwFXDo5shBPjlEpZ6s1Qe5MV0aCIEHHFeEtz6RrDMPhFeDvkK-npaXNf7Ag/exec";
 
 // Elementos da calculadora
 const calcBtn = document.getElementById("calc-btn");
