@@ -222,7 +222,7 @@ function mostrarResultado(dados) {
   });
 
   resultadoTexto.textContent =
-    dados.ambiente + " (" + dados.metragem + " m²): entre " + formatar(dados.valorMin) + " e " + formatar(dados.valorMax) + "Contempla planejamento, gestão do serviço, mão de obra e materiais";
+    dados.ambiente + " (" + dados.metragem + " m²): entre " + formatar(dados.valorMin) + " e " + formatar(dados.valorMax) + " - Itens cotemplados: planejamento, gestão do serviço, mão de obra e materiais (Revestimento, pinta, itens de acabamento etc)";
 
   if (resultadoWhatsapp) {
     const mensagem = "Olá, OBRABIT! Fiz uma simulação no site: " + dados.ambiente +
