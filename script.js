@@ -222,7 +222,7 @@ function mostrarResultado(dados) {
   });
 
   resultadoTexto.textContent =
-    dados.ambiente + " (" + dados.metragem + " m²): entre " + formatar(dados.valorMin) + " e " + formatar(dados.valorMax);
+    dados.ambiente + " (" + dados.metragem + " m²): entre " + formatar(dados.valorMin) + " e " + formatar(dados.valorMax) + "Contempla planejamento, gestão do serviço, mão de obra e materiais";
 
   if (resultadoWhatsapp) {
     const mensagem = "Olá, OBRABIT! Fiz uma simulação no site: " + dados.ambiente +
